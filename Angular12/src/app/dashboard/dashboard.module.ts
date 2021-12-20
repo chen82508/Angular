@@ -8,6 +8,8 @@ import { UserComponent } from './components/user/user.component';
 
 import { NgMaterialModule } from './ng-material/ng-material.module';
 
+import { DashboardLibraryModule } from './library/dashboard-library.module';
+
 @NgModule({
   declarations: [
     WrapperComponent,
@@ -20,7 +22,9 @@ import { NgMaterialModule } from './ng-material/ng-material.module';
     DashboardRoutingModule,
 
     // NG Material Modules
-    NgMaterialModule
+    NgMaterialModule,
+
+    DashboardLibraryModule
   ]
 })
 export class DashboardModule { }

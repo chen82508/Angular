@@ -1,12 +1,24 @@
+<mat-toolbar style="background: red;">
+    <div>
+        <span>Hello world</span>
+    </div>
+</mat-toolbar>
 <mat-sidenav-container autosize>
-    <mat-sidenav #sidenav mode="side" opened="true">
+    <mat-sidenav #sidenav mode="side" opened="true" class="sidebar" [ngClass]="{active: isExpanded}">
+        <div class="logo-content">
+            <div class="logo">
+                <i class="bx bxl-c-plus-plus"></i>
+                <div class="logo-name">implement</div>
+            </div>
+            <mat-icon mat-list-icon id="btnExpand" (click)="isExpanded = !isExpanded">menu</mat-icon>
+        </div>
         <mat-nav-list>
             <mat-list-item>
-                <mat-icon mat-list-icon class="chevron-button sidenav-button" (click)="isExpanded = !isExpanded" [ngClass]="{'rotated': isExpanded}">chevron_right</mat-icon>
-            </mat-list-item>
-            <mat-list-item [routerLink]="'dashboard'">
-                <mat-icon mat-list-icon>home</mat-icon>
-                <span *ngIf="isExpanded">Dashboard</span>
+                <a [routerLink]="['/dashboard']" routerLinkActive="active" >
+                    <mat-icon mat-list-icon>home</mat-icon>
+                    <span *ngIf="isExpanded">Dashboard</span>
+                </a>
+                <span class="tooltip">Dashboard</span>
             </mat-list-item>
             <mat-list-item [routerLink]="'info'">
                 <mat-icon mat-list-icon>important_devices</mat-icon>
@@ -25,3 +37,34 @@
         <router-outlet></router-outlet>
     </div>
 </mat-sidenav-container>
+
+<!-- <kcl-sidenav-container>
+    <kcl-sidenav mode="side" [ngClass]="{active: isExpanded}">
+        <kcl-sidenav-logo>
+            <div class="logo-content">
+                <div class="logo">
+                    <i class="bx bxl-c-plus-plus"></i>
+                    <div class="logo-name">implement</div>
+                </div>
+                <kcl-sidenav-expand-logo (click)="isExpanded = !isExpanded">
+                    <mat-icon mat-list-icon>menu</mat-icon>
+                </kcl-sidenav-expand-logo>
+            </div>
+        </kcl-sidenav-logo>
+        <kcl-sidenav-list [items]="DEFAULT_LIST"></kcl-sidenav-list>
+        <kcl-sidenav-profile>
+            <div class="profile-content">
+                <div class="profile">
+                    <div class="profile-details">
+                        <img src="../../../../assets/image/despisepikachu.png" alt="profile">
+                        <div class="name-job">
+                            <div class="name">Kaihua</div>
+                            <div class="job">Program Designer</div>
+                        </div>
+                    </div>
+                    <mat-icon mat-list-icon id="logout">logout</mat-icon>
+                </div>
+            </div>
+        </kcl-sidenav-profile>
+    </kcl-sidenav>
+</kcl-sidenav-container> -->

@@ -1,0 +1,11 @@
+<!-- <p style="color: #FFF;">Here is list.</p> -->
+<ul *ngIf="_listItems.length > 0" class="nav-links">
+    <li *ngFor="let item of _listItems">
+        <a routerLink="/{{item.name.toLowerCase()}}" routerLinkActive="sidnav-link-active" >
+            <i *ngIf="item.icon_type === 'boxicon'" class="bx {{item.icon}}"></i>
+            <mat-icon mat-list-icon *ngIf="item.icon_type === 'ng-mat'">{{item.icon}}</mat-icon>
+            <span class="link-name">{{item.name}}</span>
+        </a>
+        <span class="tooltip">{{item.name}}</span>
+    </li>
+</ul>
