@@ -1,70 +1,42 @@
-<mat-toolbar style="background: red;">
-    <div>
-        <span>Hello world</span>
-    </div>
-</mat-toolbar>
-<mat-sidenav-container autosize>
-    <mat-sidenav #sidenav mode="side" opened="true" class="sidebar" [ngClass]="{active: isExpanded}">
-        <div class="logo-content">
-            <div class="logo">
+<kcl-sidenav-container>
+    <kcl-sidenav #sidenav mode="side" [ngClass]="{close: !isExpanded}">
+        <kcl-logo-drawer>
+            <div class="logo-details">
                 <i class="bx bxl-c-plus-plus"></i>
-                <div class="logo-name">implement</div>
+                <span class="logo-name">Implement</span>
             </div>
-            <mat-icon mat-list-icon id="btnExpand" (click)="isExpanded = !isExpanded">menu</mat-icon>
-        </div>
-        <mat-nav-list>
-            <mat-list-item>
-                <a [routerLink]="['/dashboard']" routerLinkActive="active" >
-                    <mat-icon mat-list-icon>home</mat-icon>
-                    <span *ngIf="isExpanded">Dashboard</span>
-                </a>
-                <span class="tooltip">Dashboard</span>
-            </mat-list-item>
-            <mat-list-item [routerLink]="'info'">
-                <mat-icon mat-list-icon>important_devices</mat-icon>
-                <span *ngIf="isExpanded">Info</span>
-            </mat-list-item>
-            <mat-list-item [routerLink]="'user'">
-                <mat-icon mat-list-icon>person</mat-icon>
-                <span *ngIf="isExpanded">User</span>
-            </mat-list-item>
-        </mat-nav-list>
-    </mat-sidenav>
-    <div class="content">
-        <mat-toolbar>
-            <h4>Hello world</h4>
-        </mat-toolbar>
-        <router-outlet></router-outlet>
-    </div>
-</mat-sidenav-container>
-
-<!-- <kcl-sidenav-container>
-    <kcl-sidenav mode="side" [ngClass]="{active: isExpanded}">
-        <kcl-sidenav-logo>
-            <div class="logo-content">
-                <div class="logo">
-                    <i class="bx bxl-c-plus-plus"></i>
-                    <div class="logo-name">implement</div>
-                </div>
-                <kcl-sidenav-expand-logo (click)="isExpanded = !isExpanded">
-                    <mat-icon mat-list-icon>menu</mat-icon>
-                </kcl-sidenav-expand-logo>
-            </div>
-        </kcl-sidenav-logo>
-        <kcl-sidenav-list [items]="DEFAULT_LIST"></kcl-sidenav-list>
-        <kcl-sidenav-profile>
+        </kcl-logo-drawer>
+        <kcl-list-item-drawer *ngIf="DEFAULT_LIST.length > 0">
+            <ul class="nav-links">
+                <li *ngFor="let item of DEFAULT_LIST">
+                    <a [routerLink]="item.name.toLowerCase()" routerLinkActive="sidnav-link-active" kclSidenavTooltip tooltip="{{item.name}}" placement="right">
+                        <i *ngIf="item.icon_type === 'boxicon'" class="bx {{item.icon}}"></i>
+                        <mat-icon mat-list-icon *ngIf="item.icon_type === 'ng-mat'">{{item.icon}}</mat-icon>
+                        <span class="link-name">{{item.name}}</span>
+                    </a>
+                </li>
+            </ul>
+        </kcl-list-item-drawer>
+        <kcl-profile-drawer>
             <div class="profile-content">
                 <div class="profile">
                     <div class="profile-details">
                         <img src="../../../../assets/image/despisepikachu.png" alt="profile">
                         <div class="name-job">
-                            <div class="name">Kaihua</div>
+                            <div class="profile-name">Kaihua</div>
                             <div class="job">Program Designer</div>
                         </div>
                     </div>
-                    <mat-icon mat-list-icon id="logout">logout</mat-icon>
+                    <i class="bx bx-log-out" id="log_out" kclSidenavTooltip tooltip="Logout" [specifyWidth]="78" placement="right"></i>
                 </div>
             </div>
-        </kcl-sidenav-profile>
+        </kcl-profile-drawer>
     </kcl-sidenav>
-</kcl-sidenav-container> -->
+    <kcl-sidenav-content>
+        <section class="home-section">
+            <div class="home-content">
+                <i class="bx bx-menu" id="sidenav_menu" (click)="isExpanded = !isExpanded"></i>
+            </div>
+        </section>
+    </kcl-sidenav-content>
+</kcl-sidenav-container>

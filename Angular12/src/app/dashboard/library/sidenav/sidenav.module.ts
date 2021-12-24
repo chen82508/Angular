@@ -1,36 +1,39 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { KclSidenav, KclSidenavContainer } from './sidenav';
 import {
-  KclSidenavLogo,
-  KclSidenavExpandLogo,
-  KclSidenavList,
-  KclSidenavProfile
+  KclSidenav,
+  KclSidenavContent,
+  KclSidenavContainer
+} from './sidenav';
+import {
+  KclListItemDrawer,
+  KclLogoDrawer,
+  KclProfileDrawer,
 } from './sidenav-drawer';
 import { NgMaterialModule } from '../../ng-material/ng-material.module';
 
 @NgModule({
   declarations: [
+    KclListItemDrawer,
+    KclLogoDrawer,
+    KclProfileDrawer,
     KclSidenav,
+    KclSidenavContent,
     KclSidenavContainer,
-    KclSidenavLogo,
-    KclSidenavExpandLogo,
-    KclSidenavList,
-    KclSidenavProfile
   ],
   imports: [
     CommonModule,
     RouterModule,
-    NgMaterialModule,
+    NgMaterialModule
   ],
   exports: [
+    KclListItemDrawer,
+    KclLogoDrawer,
+    KclProfileDrawer,
     KclSidenav,
+    KclSidenavContent,
     KclSidenavContainer,
-    KclSidenavLogo,
-    KclSidenavExpandLogo,
-    KclSidenavList,
-    KclSidenavProfile
   ],
 })
 export class SidenavModule { }

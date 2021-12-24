@@ -1,28 +1,51 @@
 import {
-  AfterContentInit,
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
+  AfterContentChecked,
   Component,
-  ElementRef,
+  ContentChild,
+  ContentChildren,
+  InjectionToken,
   Input,
-  NgZone,
-  ViewEncapsulation
+  QueryList,
 } from '@angular/core';
-import { CdkScrollable, ScrollDispatcher } from '@angular/cdk/scrolling';
+import { Platform } from '@angular/cdk/platform';
+import { Subject } from 'rxjs';
 
+export type KclDrawerToggleResult = 'open' | 'close';
+
+/** Drawer and SideNav display modes. */
 export type KclDrawerMode = 'over' | 'push' | 'side';
 
+export const KCL_DRAWER_DEFAULT_AUTOSIZE = new InjectionToken<boolean>(
+  'KCL_DRAWER_DEFAULT_AUTOSIZE',
+  {
+    providedIn: 'root',
+    factory: KCL_DRAWER_DEFAULT_AUTOSIZE_FACTORY,
+  },
+);
+
+export function KCL_DRAWER_DEFAULT_AUTOSIZE_FACTORY(): boolean { return false; }
+
+export const KCL_DRAWER_CONTAINER = new InjectionToken('KCL_DRAWER_CONTAINER');
+
+
 @Component({
-  selector: 'kcl-sidenav-drawer',
-  exportAs: 'kclSidenavDrawer',
+  selector: 'kcl-drawer-content',
+  template: '<ng-content></ng-content>',
+})
+export class KclDrawerContent {}
+
+@Component({
+  selector: 'kcl-drawer',
+  exportAs: 'kclDrawer',
   templateUrl: 'sidenav-drawer.html',
   host: {
     'class': 'kcl-sidenav-drawer',
     '[class.kcl-sidenav-expand]': 'mode === "side"'
   },
 })
-export class KclSidenavDrawer {
-  //#region Set css by side navigation mode
+export class KclDrawer implements AfterContentChecked {
+  private _enableAnimations: boolean = false;
+  //#region Mode of the drawer.
   @Input()
   get mode(): KclDrawerMode {
     return this._drawerMode;
@@ -32,96 +55,61 @@ export class KclSidenavDrawer {
   }
   private _drawerMode: KclDrawerMode = 'side';
   //#endregion
-}
 
-@Component({
-  selector: 'kcl-sidenav-logo',
-  exportAs: 'kclSidenavLogo',
-  templateUrl: 'sidenav-drawer.html',
-})
-export class KclSidenavLogo { }
+  constructor(
+    private _platform: Platform,
+  ) {}
 
-@Component({
-  selector: 'kcl-sidenav-expand-logo',
-  exportAs: 'kclSidenavExpandLogo',
-  templateUrl: 'sidenav-drawer.html',
-  host: {
-    'id': 'kcl-expand-btn',
-  },
-  styleUrls: ['./sidenav.scss']
-})
-export class KclSidenavExpandLogo { }
-
-
-export type KclSidenavListMode = 'unordered' | 'ordered';
-export type KclSidenavListItemStructure = 'Responsive' | null;
-@Component({
-  selector: 'kcl-sidenav-list',
-  exportAs: 'kclSidenavList',
-  templateUrl: 'sidenav-list.html',
-  host: {},
-})
-export class KclSidenavList {
-  //#region Get input list mode.
-  @Input()
-  get mode(): KclSidenavListMode {
-    return this._listMode;
-  }
-  set mode(value: KclSidenavListMode) {
-    this._listMode = value;
-  }
-  _listMode: KclSidenavListMode = 'unordered';
-  //#endregion
-
-  //#region Set list items
-  @Input()
-  get items(): any {
-    return this._listItems;
-  }
-  set items(value: any) {
-    this._listItems = value;
-  }
-  public _listItems: any = [];
-  //#endregion
-
-  ngOnInit() {
-    console.log(this._listItems);
+  ngAfterContentChecked(): void {
+    if (this._platform.isBrowser) {
+      this._enableAnimations = true;
+    }
   }
 }
 
 @Component({
-  selector: 'kcl-sidenav-profile',
-  exportAs: 'kclSidenavProfile',
+  selector: 'kcl-drawer-container',
+  exportAs: 'kclDrawerContainer',
+  template: '<ng-content></ng-content>',
+  providers: [
+    {
+      provide: KCL_DRAWER_CONTAINER,
+      useExisting: KclDrawerContainer,
+    },
+  ]
+})
+export class KclDrawerContainer {
+  @ContentChildren(KclDrawer, {
+    descendants: true,
+  })
+  _allDrawers: QueryList<KclDrawer> = new QueryList<KclDrawer>();
+
+  @ContentChild(KclDrawerContent) _content: KclDrawerContent | undefined;
+
+  readonly _contentMarginChanges = new Subject<{left: number | null; right: number | null}>();
+}
+
+
+
+
+
+@Component({
+  selector: 'kcl-logo-drawer',
+  exportAs: 'kclLogoDrawer',
   templateUrl: 'sidenav-drawer.html',
 })
-export class KclSidenavProfile { }
+export class KclLogoDrawer {}
 
+@Component({
+  selector: 'kcl-list-item-drawer',
+  exportAs: 'kclListItemDrawer',
+  templateUrl: 'sidenav-drawer.html'
+})
+export class KclListItemDrawer {}
 
-// @Component({
-//   selector: 'mat-drawer-content',
-//   template: '<ng-content></ng-content>',
-//   host: {
-//     'class': 'mat-drawer-content',
-//     '[style.margin-left.px]': '_container._contentMargins.left',
-//     '[style.margin-right.px]': '_container._contentMargins.right',
-//   },
-//   changeDetection: ChangeDetectionStrategy.OnPush,
-//   encapsulation: ViewEncapsulation.None,
-// })
-// export class MatDrawerContent extends CdkScrollable implements AfterContentInit {
-//   constructor(
-//     private _changeDetectorRef: ChangeDetectorRef,
-//     // @Inject(forwardRef(() => MatDrawerContainer)) public _container: MatDrawerContainer,
-//     elementRef: ElementRef<HTMLElement>,
-//     scrollDispatcher: ScrollDispatcher,
-//     ngZone: NgZone,
-//   ) {
-//     super(elementRef, scrollDispatcher, ngZone);
-//   }
-
-//   ngAfterContentInit() {
-//     this._container._contentMarginChanges.subscribe(() => {
-//       this._changeDetectorRef.markForCheck();
-//     });
-//   }
-// }
+@Component({
+  selector: 'kcl-profile-drawer',
+  exportAs: 'kclProfileDrawer',
+  templateUrl: 'sidenav-drawer.html'
+})
+export class KclProfileDrawer {}

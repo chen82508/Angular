@@ -1,1 +1,5 @@
 <ng-content select="kcl-sidenav"></ng-content>
+<ng-content select="kcl-sidenav-content"></ng-content>
+<kcl-sidenav-content *ngIf="!_content">
+    <ng-content></ng-content>
+</kcl-sidenav-content>

@@ -1,0 +1,46 @@
+// :host {
+//     display: block;
+// }
+
+// div {
+//     position: absolute;
+//     top: 0;
+//     left: 100%;
+//     background-color: #292929;
+//     color: white;
+//     padding: 0.5rem 1rem;
+//     border-radius: 4px;
+//     white-space: nowrap;
+// }
+
+.kcl-tooltip {
+    // top: -10%;
+    position: absolute;
+    background: #1d1b31;
+    color: #fff;
+    margin-top: 0;
+    padding: 5px 20px;
+    border-radius: 6px;
+    opacity: 0;
+    display: block;
+    pointer-events: none;
+    transition: 0s;
+}
+.kcl-tooltip:after {
+    content: "";
+    position: absolute;
+    border-style: solid;
+}
+.kcl-tooltip-right:after {
+    top: 50%;
+    right: 100%;
+    margin-top: -5px;
+    border-width: 5px;
+    border-color: transparent black transparent transparent;
+}
+.kcl-tooltip-show {
+    top: 0;
+    opacity: 1;
+    pointer-events: auto;
+    transition: all 0.4s ease;
+}
