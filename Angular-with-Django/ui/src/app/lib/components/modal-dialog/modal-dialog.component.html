@@ -1,0 +1,7 @@
+<div [@dialog] *libPopupRect="isOpen; overlay: true" class="l-modal-dialog">
+    <h2>{{title}}</h2>
+    <ng-content></ng-content>
+    <div class="l-buttons">
+        <button (click)="onClose()">Close</button>
+    </div>
+</div>

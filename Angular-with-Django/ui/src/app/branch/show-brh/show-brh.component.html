@@ -1,0 +1,46 @@
+<lib-animate-dialog [(visible)]="modalIsOpen" [width]="dialogWidth" [height]="dialogHeight" [title]="dialogTitle">
+    <app-branch-edit-brh
+        [brhSN]="branch.sy_brh_sn"
+        [brhName]="branch.sy_brh_nam"
+        (closeEvent)="closeDialog(!$event)"></app-branch-edit-brh>
+</lib-animate-dialog>
+
+<div class="container">
+    <header>
+        <div class="func-group">
+            <button class="btn btn-primary" (click)="addBranch()">
+                <i class="bx bx-add-to-queue"></i>
+            </button>
+        </div>
+        <h2>Branch List <small>Custom popup window</small></h2>
+    </header>
+    <main>
+        <ul *ngIf="BranchList.length > 0; else hasNoData" class="responsive-table">
+            <li class="table-header">
+                <div class="col col-1">Branch ID</div>
+                <div class="col col-2">Branch Name</div>
+                <div class="col col-3">Edit</div>
+                <div class="col col-4">Delete</div>
+            </li>
+            <li *ngFor="let branch of BranchList" class="table-row">
+                <div class="col col-1" data-label="Branch ID">{{branch.sy_brh_sn}}</div>
+                <div class="col col-2" data-label="Branch Name">{{branch.sy_brh_nam}}</div>
+                <div class="col col-3" data-label="Edit">
+                    <button (click)="editBranch(branch)">
+                        <i class="bx bx-edit"></i>
+                    </button>
+                </div>
+                <div class="col col-4" data-label="Delete">
+                    <i class="bx bx-trash"></i>
+                </div>
+            </li>
+        </ul>
+        <ng-template #hasNoData>
+            <ul class="responsive-table">
+                <li class="table-nodata">
+                    <div class="col col-full">Has no data.</div>
+                </li>
+            </ul>
+        </ng-template>
+    </main>
+</div>

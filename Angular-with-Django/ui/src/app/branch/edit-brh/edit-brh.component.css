@@ -1,0 +1,206 @@
+*::after,
+*::before {
+    box-sizing: border-box;
+}
+
+.edit-brh-container {
+    padding: 2em 3em 2em 3em;
+    margin: 0em auto;
+    background-color: transparent;
+}
+
+.row {
+    zoom: 1;
+}
+
+.row::before,
+.row::after {
+    content: '';
+    display: table;
+}
+
+.row::after {
+    clear: both;
+}
+
+.input-group {
+    margin-bottom: 1em;
+    zoom: 1;
+}
+
+.input-group::before,
+.input-group::after {
+    content: '';
+    display: table;
+}
+
+.input-group::after {
+    clear: both;
+}
+
+input {
+    width: 100%;
+    padding: 1em;
+    line-height: 1.4;
+    background-color: #F9F9F9;
+    border: 1px solid #E5E5E5;
+    border-radius: 3px;
+    transition: all 0.35s ease-in-out;
+}
+
+input:focus {
+    outline: 0;
+    border-color: #BD8200;
+}
+
+input:focus+.input-icon i {
+    color: #F0A500;
+}
+
+input:focus+.input-icon::after {
+    border-right-color: #F0A500;
+}
+
+.input-group-icon {
+    position: relative;
+}
+
+.input-group-icon input {
+    padding-left: 4.4em;
+}
+
+.input-group-icon .input-icon {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 3.4em;
+    height: 2.9em;
+    line-height: 3.9em;
+    text-align: center;
+    pointer-events: none;
+}
+
+.input-group-icon .input-icon::after {
+    position: absolute;
+    top: 0.6em;
+    bottom: 0.6em;
+    left: 3.4em;
+    display: block;
+    border-right: 1px solid #E5E5E5;
+    content: '';
+    transition: all 0.35s ease-in-out;
+}
+
+.input-group-icon .input-icon i {
+    font-size: 30px;
+    transition: all 0.35s ease-in-out;
+}
+
+.actions {
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    padding: 0.625rem 1rem;
+    /* background-color: #EEE; */
+    background-color: #243B55;
+    border-top: 1px solid #CCC;
+    align-items: center;
+    text-align: center;
+}
+
+.actions .btn-confirm {
+    position: relative;
+    display: inline-block;
+    padding: 0.625em 1.25em;
+    color: #A8EDF2;
+    background: #16A085;
+    border: none;
+    cursor: pointer;
+    overflow: hidden;
+    box-shadow: 0 0 5px 0 #193047;
+    transition: 0.5s;
+}
+
+.actions .btn-confirm:hover {
+    background: #076D59;
+    color: #FFF;
+    box-shadow: none;
+}
+
+.actions .btn-confirm:hover span {
+    position: absolute;
+    display: block;
+}
+
+.actions .btn-confirm:hover span:nth-child(1) {
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #03E9F4);
+    animation: btn-anim1 1s linear infinite;
+}
+@keyframes btn-anim1 {
+    0% {
+        left: -100%;
+    }
+
+    50%, 100% {
+        left: 100%;
+    }
+}
+
+.actions .btn-confirm:hover span:nth-child(2) {
+    top: -100%;
+    right: 0;
+    width: 2px;
+    height: 100%;
+    background: linear-gradient(180deg, transparent, #03E9F4);
+    animation: btn-anim2 1s linear infinite;
+    animation-delay: 0.25s;
+}
+@keyframes btn-anim2 {
+    0% {
+        top: -100%;
+    }
+
+    50%, 100% {
+        top: 100%;
+    }
+}
+
+.actions .btn-confirm:hover span:nth-child(3) {
+    bottom: 0;
+    right: -100%;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(270deg, transparent, #03E9F4);
+    animation: btn-anim3 1s linear infinite;
+    animation-delay: 0.5s;
+}
+@keyframes btn-anim3 {
+    0% {
+        right: -100%;
+    }
+    50%, 100% {
+        right: 100%;
+    }
+}
+
+.actions .btn-confirm:hover span:nth-child(4) {
+    bottom: -100%;
+    left: 0;
+    width: 2px;
+    height: 100%;
+    background: linear-gradient(360deg, transparent, #03E9F4);
+    animation: btn-anim4 1s linear infinite;
+    animation-delay: 0.75s;
+}
+@keyframes btn-anim4 {
+    0% {
+        bottom: -100%;
+    }
+    50%, 100% {
+        bottom: 100%;
+    }
+}

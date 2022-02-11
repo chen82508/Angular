@@ -1,0 +1,30 @@
+<!-- <p>popup-host works!</p> -->
+
+<ng-container [@dialog] *ngFor="let p of popups">
+    <div
+        class="l-popup"
+        *ngIf="!p.overlay"
+        [style.top.px]="p.rect.top"
+        [style.left.px]="p.rect.left"
+        [style.bottom.px]="p.rect.bottom"
+        [style.right.px]="p.rect.right"
+        [style.height]="p.rect.height"
+        [style.width]="p.rect.width"
+        [style.z-index]="p.rect.zIndex">
+        <ng-container [ngTemplateOutlet]="p.tr"></ng-container>
+    </div>
+    <div [@dropback] class="l-overlay" *ngIf="p.overlay">
+        <div
+            class="l-popup"
+            [style.top.px]="p.rect.top"
+            [style.left.px]="p.rect.left"
+            [style.bottom.px]="p.rect.bottom"
+            [style.right.px]="p.rect.right"
+            [style.height.px]="p.rect.height"
+            [style.width.px]="p.rect.width"
+            [style.z-index]="p.rect.zIndex"
+            [class.l-popup-center]="isCenter(p)">
+            <ng-container [ngTemplateOutlet]="p.tr"></ng-container>
+        </div>
+    </div>
+</ng-container>

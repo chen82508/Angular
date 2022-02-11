@@ -1,0 +1,10 @@
+<div [@dropback] *ngIf="visible" class="popup-dropback">
+    <div [@dialog] class="popup-dialog"
+        [style.width.px]="width">
+        <h2>{{title}}</h2>
+        <ng-content></ng-content>
+        <a *ngIf="closable" href="javascript:void(0)" class="popup-close" (click)="close()">
+            <i class="bx bx-x"></i>
+        </a>
+    </div>
+</div>
